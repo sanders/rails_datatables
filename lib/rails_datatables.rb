@@ -11,7 +11,7 @@ module RailsDatatables
     no_records_message = opts[:no_records_message] || nil
     auto_width = opts[:auto_width].present? ? opts[:auto_width].to_s : "true"
     row_callback = opts[:row_callback] || nil
-
+    
     append = opts[:append] || nil
 
     ajax_source = opts[:ajax_source] || nil
@@ -32,6 +32,9 @@ module RailsDatatables
             #{"'sZeroRecords': '#{no_records_message}'," if no_records_message}
             "sProcessing": '#{processing}'
           },
+					"bJQueryUI": true,
+					"bPaginate": false,
+					"bInfo": false,
           "sPaginationType": "full_numbers",
           "iDisplayLength": #{per_page},
           "bProcessing": true,
@@ -70,6 +73,7 @@ module RailsDatatables
           sortable = c[:sortable].to_s.present? ? c[:sortable].to_s : "true"
 
           "{
+          #{c[:width] ? "'sWidth': '#{c[:width]}'," : ""}
           'sType': '#{c[:type] || "string"}',
           'bSortable':#{sortable},
           'bSearchable':#{searchable}
